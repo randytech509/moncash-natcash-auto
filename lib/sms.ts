@@ -39,7 +39,7 @@ export function parseSenderName(text: string): string | null {
 
 /** Solde du compte marchand : « Votre solde / Your balance : X HTG ». */
 export function parseBalanceCents(text: string): number | null {
-  const m = text.match(/(?:solde|balans|balance)\s*:?\s*([\d][\d.,\s]*\d|\d)\s*(?:HTG|Gourdes?|Goud|\bG\b)/i);
+  const m = text.match(/(?:solde|balans|balance)\s*(?:ou)?\s*:?\s*([\d][\d.,\s]*\d|\d)\s*(?:HTG|Gourdes?|Goud|\bG\b)/i);
   return m ? normalizeAmount(m[1]) : null;
 }
 
