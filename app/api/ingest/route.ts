@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual } from "node:crypto";
 import { parseSms, SmsProvider } from "@/lib/sms";
 
 export const runtime = "nodejs";
+
+/** Comparaison à temps constant — évite qu'un attaquant déduise le secret octet par octet
+ *  en mesurant les micro-différences de latence d'un `!==` classique (fuite de timing). */
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
 
 /**
  * Endpoint d'ingestion SMS MonCash/NatCash — reçoit le POST de l'app Android SMS-forwarder,
@@ -23,7 +33,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => null);
-  if (!body || body.secret !== secret) {
+  if (!body || typeof body.secret !== "string" || !safeEqual(body.secret, secret)) {
     return NextResponse.json({ ok: false, error: "secret invalide" }, { status: 401 });
   }
 
