@@ -31,9 +31,9 @@ export function parseDirection(text: string): SmsDirection {
   return 'other';
 }
 
-/** Nom de l'expéditeur : après « de … » jusqu'au numéro. */
+/** Nom de l'expéditeur : après « de … » (FR) ou « nan … » (créole) jusqu'au numéro. */
 export function parseSenderName(text: string): string | null {
-  const m = text.match(/\bde\s+(\p{Lu}[\p{L}'’.\- ]*?)\s+(?:\+?509[\s-]?)?\d{4,}/u);
+  const m = text.match(/\b(?:de|nan)\s+(\p{Lu}[\p{L}'’.\- ]*?)\s+(?:\+?509[\s-]?)?\d{4,}/u);
   return m ? m[1].trim() : null;
 }
 
