@@ -1,8 +1,7 @@
 # MonCash & NatCash Auto — by RandyTech Solutions
 
 Vérification automatisée des dépôts **MonCash** et **NatCash** par lecture des SMS de
-confirmation reçus sur le téléphone marchand — sans intégration API opérateur (aucune
-n'existe publiquement pour ces deux services en Haïti), sans validation manuelle.
+confirmation reçus sur le téléphone marchand — sans intégration API opérateur, sans validation manuelle.
 
 > Ce dépôt est publié à titre de démonstration technique. Voir [LICENSE.md](LICENSE.md)
 > — usage commercial soumis à licence.
